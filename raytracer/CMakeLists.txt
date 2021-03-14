@@ -17,7 +17,6 @@ set(CORE_FILES
 )
 
 set(VULKAN_FILES
-	core/main.cpp
 )
 
 source_group("Core" FILES ${CORE_FILES})
