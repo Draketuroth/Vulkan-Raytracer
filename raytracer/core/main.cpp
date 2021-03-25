@@ -26,7 +26,7 @@ int main(int argc, char** argv)
 	Settings settings = Settings();
 
 	// Parse command line arguments and configure application settings.
-	for (Platform::Type::Int i = 1u; i < argc; ++i) {
+	for (Platform::Type::Int i = 1; i < argc; ++i) {
 		std::string arg = argv[i];
 		if ((arg == "-h") || (arg == "--help")) {
 			printHelpMessage();
