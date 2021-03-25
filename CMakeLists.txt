@@ -7,7 +7,6 @@ project(
 	LANGUAGES C CXX
     VERSION 0.1
     DESCRIPTION "A Vulkan Raytracer")
-	
 
-add_subdirectory(raytracer)
+add_subdirectory(Raytracer)
 set_property (DIRECTORY PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
