@@ -23,28 +23,41 @@ void printHelpMessage()
 
 int main(int argc, char** argv)
 {
-	Settings settings = Settings();
 
-	// Parse command line arguments and configure application settings.
-	for (Platform::Type::Int i = 1; i < argc; ++i) {
-		std::string arg = argv[i];
-		if ((arg == "-h") || (arg == "--help")) {
-			printHelpMessage();
+	try {
+		Settings settings = Settings();
+
+		// Parse command line arguments and configure application settings.
+		for (Platform::Type::Int i = 1; i < argc; ++i) {
+			std::string arg = argv[i];
+			if ((arg == "-h") || (arg == "--help")) {
+				printHelpMessage();
+			}
 		}
+
+		// Prepare window configuration. @TODO: Set from configuration file.
+		const Core::WindowProperties windowProperties("Vulkan Raytracer", settings.width, settings.height, settings.fullScreen);
+
+		Core::Raytracer application(windowProperties, settings.presentMode);
+
+		// Print information of the initialized Vulkan application.
+		Vulkan::PrintVulkanSDKInformation();
+		Vulkan::PrintVulkanInstanceInformation(application);
+		Vulkan::PrintVulkanLayersInformation(application);
+		Vulkan::PrintVulkanDevices(application);
+
+		application.run();
+
+		return EXIT_SUCCESS;
+	}
+	catch (const std::exception& exception) 
+	{
+		std::cerr << "FATAL: " << exception.what() << std::endl;
+	}
+	catch (...) 
+	{
+		std::cerr << "FATAL: Caught unhandled exception!" << std::endl;
 	}
 
-	// Prepare window configuration. @TODO: Set from configuration file.
-	const Core::WindowProperties windowProperties("Vulkan Raytracer", settings.width, settings.height, settings.fullScreen);
-
-	Core::Raytracer application(windowProperties, settings.presentMode);
-
-	// Print information of the initialized Vulkan application.
-	Vulkan::PrintVulkanSDKInformation();
-	Vulkan::PrintVulkanInstanceInformation(application);
-	Vulkan::PrintVulkanLayersInformation(application);
-	Vulkan::PrintVulkanDevices(application);
-
-	application.run();
-
-	return EXIT_SUCCESS;
+	return EXIT_FAILURE;
 }
