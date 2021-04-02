@@ -11,11 +11,14 @@ namespace Vulkan
         Instance(const Core::Window& windowRef, const std::vector<const char*> validationLayersVec, Platform::Type::Uint32 vulkanVersion);
         ~Instance();
 
-        const Core::Window& getWindow() { return window; }
+        const Core::Window& getWindow() const { return window; }
 
         const std::vector<VkExtensionProperties>& getExtensions() { return extensions; }
         const std::vector<VkLayerProperties>& getLayers() { return layers; }
         const std::vector<VkPhysicalDevice>& getDevices() { return devices; }
+        const std::vector<const char*>& getValidationLayers() const { return validationLayers; }
+
+        VkInstance getHandle() const { return instance; }
 
     private:
 

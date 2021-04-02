@@ -50,7 +50,8 @@ namespace Core
 		Platform::Type::Float getContentScale();
 		Platform::Type::Uint getMonitorWidth();
 		Platform::Type::Uint getMonitorHeight();
-		GLFWwindow* getWindow() const;
+		
+		GLFWwindow* getHandle() const;
 
 		std::function<void()> draw;
 		std::function<void()> onClose;

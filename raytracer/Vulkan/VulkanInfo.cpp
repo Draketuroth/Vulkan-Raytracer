@@ -28,7 +28,7 @@ namespace Vulkan
             STR(VK_PHYSICAL_DEVICE_TYPE_CPU);
 #undef STR
         default:
-            return "UnknownDeviceType";
+            return "Unknown Device Type!";
         }
     }
 
@@ -45,7 +45,7 @@ namespace Vulkan
             STR(Intel);
 #undef STR
         default:
-            "UnknownVendor";
+            "Unknown Vendor!";
         }
     }
 

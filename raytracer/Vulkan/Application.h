@@ -5,8 +5,6 @@
 
 namespace Core { class Window; }
 
-namespace Vulkan { class Instance; }
-
 namespace Vulkan 
 {
     class Application 
@@ -18,13 +16,18 @@ namespace Vulkan
         const std::vector<VkLayerProperties>& layers() const;
         const std::vector<VkPhysicalDevice>& devices() const;
 
+        void setPhysicalDevice(VkPhysicalDevice physicalDevice);
+
         void run();
 
     protected:
         Application(const Core::WindowProperties& windowConfig, VkPresentModeKHR presentMode, bool enableValidationLayers);
 
         Platform::Pointer::Scope<Core::Window> window;
-        Platform::Pointer::Scope<Instance> instance;
+
+        Platform::Pointer::Scope<class Instance> instance;
+        Platform::Pointer::Scope<class DebugMessenger> debugUtilsMessenger;
+        Platform::Pointer::Scope<class Surface> surface;
     };
 }
 

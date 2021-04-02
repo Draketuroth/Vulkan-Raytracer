@@ -48,6 +48,10 @@ set(VULKAN_FILES
 	Vulkan/Enumerate.h
 	Vulkan/VulkanInfo.h
 	Vulkan/VulkanInfo.cpp
+	Vulkan/DebugMessenger.h
+	Vulkan/DebugMessenger.cpp
+	Vulkan/Surface.h
+	Vulkan/Surface.cpp
 )
 
 set(VULKAN_RAYTRACING_FILES

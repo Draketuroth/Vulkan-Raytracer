@@ -310,7 +310,7 @@ namespace Core
         return monitorData.height;
     }
 
-    GLFWwindow* Window::getWindow() const
+    GLFWwindow* Window::getHandle() const
     {
         return window;
     }
