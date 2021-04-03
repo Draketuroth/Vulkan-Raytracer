@@ -5,7 +5,7 @@
 
 namespace Vulkan 
 {
-    const char* ObjectTypeToString(const VkObjectType objectType) 
+    const Platform::Type::Char* ObjectTypeToString(const VkObjectType objectType)
     {
         switch (objectType)
         {

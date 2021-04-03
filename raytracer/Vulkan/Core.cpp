@@ -1,12 +1,12 @@
 
-#include "Vulkan/VulkanCore.h"
+#include "Vulkan/Core.h"
 
 #include <stdexcept>
 #include <map>
 
 namespace Vulkan 
 {
-    void CheckVKResult(VkResult result, const char* operation)
+    void CheckVKResult(VkResult result, const Platform::Type::Char* operation)
     {
         if (result != VK_SUCCESS) 
         {
@@ -14,7 +14,7 @@ namespace Vulkan
         }
     }
 
-    const char* VKResultToString(VkResult result)
+    const Platform::Type::Char* VKResultToString(VkResult result)
     {
 		switch (result)
 		{

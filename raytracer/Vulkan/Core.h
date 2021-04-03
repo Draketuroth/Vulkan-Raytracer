@@ -9,7 +9,7 @@
 
 namespace Vulkan 
 {
-    void CheckVKResult(VkResult result, const char* operation);
+    void CheckVKResult(VkResult result, const Platform::Type::Char* operation);
     const char* VKResultToString(VkResult result);
 }
 

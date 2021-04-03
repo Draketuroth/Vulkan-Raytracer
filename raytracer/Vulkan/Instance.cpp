@@ -7,7 +7,7 @@
 
 namespace Vulkan 
 {
-    Instance::Instance(const Core::Window& windowIn, const std::vector<const char*> validationLayersIn, Platform::Type::Uint32 vulkanVersion) :
+    Instance::Instance(const Core::Window& windowIn, const std::vector<const Platform::Type::Char*> validationLayersIn, Platform::Type::Uint32 vulkanVersion) :
         window(windowIn),
         validationLayers(validationLayersIn)
     {
@@ -15,7 +15,7 @@ namespace Vulkan
         checkMinimumSupportedVulkanVersion(vulkanVersion);
 
         // Get a list of required extensions.
-        std::vector<const char*> extensions = window.getRequiredInstanceExtensions();
+        std::vector<const Platform::Type::Char*> extensions = window.getRequiredInstanceExtensions();
 
         // Check the validation layers and add them to the required extensions.
         checkVulkanValidationLayerSupport(validationLayers);
@@ -60,7 +60,7 @@ namespace Vulkan
 
     void Instance::getVulkanExtensions()
     {
-        GetEnumerateVector(static_cast<const char*>(nullptr), vkEnumerateInstanceExtensionProperties, extensions);
+        GetEnumerateVector(static_cast<const Platform::Type::Char*>(nullptr), vkEnumerateInstanceExtensionProperties, extensions);
     }
 
     void Instance::getVulkanLayers()
@@ -93,19 +93,11 @@ namespace Vulkan
         }
     }
 
-    void Instance::checkVulkanValidationLayerSupport(const std::vector<const char*> validationLayersVec)
+    void Instance::checkVulkanValidationLayerSupport(const std::vector<const Platform::Type::Char*> validationLayersVec)
     {
         const auto availableLayers = GetEnumerateVector(vkEnumerateInstanceLayerProperties);
 
-        /*
-        Platform::Type::Uint32 layerCount;
-        vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
-
-        std::vector<VkLayerProperties> availableLayers(layerCount);
-        vkEnumerateInstanceLayerProperties(&layerCount, availableLayers.data());
-        */
-
-        for (const char* layerName : validationLayersVec) 
+        for (const Platform::Type::Char* layerName : validationLayersVec)
         {
             auto result = std::find_if(availableLayers.begin(), availableLayers.end(), [layerName](const VkLayerProperties& layerProperties)
             {

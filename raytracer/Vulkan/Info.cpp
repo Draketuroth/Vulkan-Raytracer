@@ -1,5 +1,5 @@
 
-#include "Vulkan/VulkanInfo.h"
+#include "Vulkan/Info.h"
 
 #include "Vulkan/Application.h"
 #include "Vulkan/Version.h"
@@ -16,7 +16,7 @@ enum VendorId
 
 namespace Vulkan 
 {
-    const char* DeviceType(const VkPhysicalDeviceType deviceType)
+    const Platform::Type::Char* DeviceType(const VkPhysicalDeviceType deviceType)
     {
         switch (deviceType)
         {
@@ -32,7 +32,7 @@ namespace Vulkan
         }
     }
 
-    const char* VendorID(const Platform::Type::Uint32 vendorId) 
+    const Platform::Type::Char* VendorID(const Platform::Type::Uint32 vendorId)
     {
         switch (vendorId)
         {

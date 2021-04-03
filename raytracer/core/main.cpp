@@ -2,7 +2,13 @@
 #include "Core/WindowProperties.h"
 #include "Core/Raytracer.h"
 
-#include "Vulkan/VulkanInfo.h"
+#include "Vulkan/Info.h"
+#include "Vulkan/Enumerate.h"
+
+namespace 
+{
+	void SetVulkanDevice(Vulkan::Application& application);
+}
 
 struct Settings
 {
@@ -46,6 +52,8 @@ int main(int argc, char** argv)
 		Vulkan::PrintVulkanLayersInformation(application);
 		Vulkan::PrintVulkanDevices(application);
 
+		SetVulkanDevice(application);
+
 		application.run();
 
 		return EXIT_SUCCESS;
@@ -60,4 +68,45 @@ int main(int argc, char** argv)
 	}
 
 	return EXIT_FAILURE;
+}
+
+namespace 
+{
+	void SetVulkanDevice(Vulkan::Application& application)
+	{
+		const auto& physicalDevices = application.devices();
+		const auto result = std::find_if(physicalDevices.begin(), physicalDevices.end(), [](const VkPhysicalDevice& device)
+			{
+				VkPhysicalDeviceFeatures deviceFeatures;
+				vkGetPhysicalDeviceFeatures(device, &deviceFeatures);
+
+				if (!deviceFeatures.geometryShader)
+				{
+					return false;
+				}
+
+				const auto queueFamilies = Vulkan::GetEnumerateVector(device, vkGetPhysicalDeviceQueueFamilyProperties);
+				const auto hasGraphicsQueue = std::find_if(queueFamilies.begin(), queueFamilies.end(), [](const VkQueueFamilyProperties& queueFamily)
+					{
+						return queueFamily.queueCount > 0u && queueFamily.queueFlags & VK_QUEUE_GRAPHICS_BIT;
+					});
+
+				return hasGraphicsQueue != queueFamilies.end();
+			});
+
+		if (result == physicalDevices.end())
+		{
+			throw std::runtime_error("Cannot find a suitable device!");
+		}
+
+		VkPhysicalDeviceProperties2 deviceProperties{};
+		deviceProperties.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PROPERTIES_2;
+		vkGetPhysicalDeviceProperties2(*result, &deviceProperties);
+
+		std::cout << "Setting Device [" << deviceProperties.properties.deviceID << "]:" << std::endl;
+
+		// application.setPhysicalDevice(*result);
+
+		std::cout << std::endl;
+	}
 }

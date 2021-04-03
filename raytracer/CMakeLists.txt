@@ -40,18 +40,20 @@ set(UTILITIES_FILES
 set(VULKAN_FILES
 	Vulkan/Application.h
 	Vulkan/Application.cpp
-	Vulkan/VulkanCore.h
-	Vulkan/VulkanCore.cpp
+	Vulkan/Core.h
+	Vulkan/Core.cpp
 	Vulkan/Instance.h
 	Vulkan/Instance.cpp
 	Vulkan/Version.h
 	Vulkan/Enumerate.h
-	Vulkan/VulkanInfo.h
-	Vulkan/VulkanInfo.cpp
+	Vulkan/Info.h
+	Vulkan/Info.cpp
 	Vulkan/DebugMessenger.h
 	Vulkan/DebugMessenger.cpp
 	Vulkan/Surface.h
 	Vulkan/Surface.cpp
+	Vulkan/Device.h
+	Vulkan/Device.cpp
 )
 
 set(VULKAN_RAYTRACING_FILES

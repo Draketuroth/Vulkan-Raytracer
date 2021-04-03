@@ -7,7 +7,7 @@ namespace
     static bool glfwInitialized = false;
 }
 
-static void GLFWErrorCallback(int error, const char* description)
+static void GLFWErrorCallback(int error, const Platform::Type::Char* description)
 {
     std::cerr << "GLFW Error: " << description << " (code: " << error << ")" << std::endl;
 }
