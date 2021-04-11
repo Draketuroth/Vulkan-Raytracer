@@ -1,7 +1,11 @@
 #ifndef VULKAN_DEVICE_H
 #define VULKAN_DEVICE_H
 
-namespace Vulkan { class Surface; }
+#include "Vulkan/Debug/Utilities.h"
+
+namespace Vulkan {
+    class Surface;
+}
 
 namespace Vulkan 
 {
@@ -18,6 +22,8 @@ namespace Vulkan
 
         VkPhysicalDevice getPhysicalDevice() const { return physicalDevice; }
         const class Surface& getSurface() const { return surface; }
+
+        const class Debug::Utilities& getDebugUtilities() const { return debugUtilites; }
 
         Platform::Type::Uint32 getGraphicsFamiliyIndex() const { return graphicsFamilyIndex; }
         Platform::Type::Uint32 getComputesFamiliyIndex() const { return computeFamilyIndex; }
@@ -39,6 +45,8 @@ namespace Vulkan
         const class Surface& surface;
 
         VkDevice device;
+
+        class Debug::Utilities debugUtilites;
 
         Platform::Type::Uint32 graphicsFamilyIndex {};
         Platform::Type::Uint32 computeFamilyIndex{};

@@ -5,6 +5,8 @@
 
 namespace Core { class Window; }
 
+namespace Vulkan { namespace Debug { class Messenger; } }
+
 namespace Vulkan 
 {
     class Application 
@@ -23,10 +25,17 @@ namespace Vulkan
     protected:
         Application(const Core::WindowProperties& windowConfig, VkPresentModeKHR presentMode, bool enableValidationLayers);
 
-        Platform::Pointer::Scope<Core::Window> window;
+        virtual void setPhysicalDevice(
+            VkPhysicalDevice physicalDevice,
+            std::vector<const Platform::Type::Char*>& requiredExtensions,
+            VkPhysicalDeviceFeatures& deviceFeatures,
+            void* nextDeviceFeatures);
 
+
+        Platform::Pointer::Scope<Core::Window> window;
+        Platform::Pointer::Scope<class Device> device;
         Platform::Pointer::Scope<class Instance> instance;
-        Platform::Pointer::Scope<class DebugMessenger> debugUtilsMessenger;
+        Platform::Pointer::Scope<Debug::Messenger> debugUtilsMessenger;
         Platform::Pointer::Scope<class Surface> surface;
     };
 }

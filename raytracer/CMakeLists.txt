@@ -46,14 +46,19 @@ set(VULKAN_FILES
 	Vulkan/Instance.cpp
 	Vulkan/Version.h
 	Vulkan/Enumerate.h
-	Vulkan/Info.h
-	Vulkan/Info.cpp
-	Vulkan/DebugMessenger.h
-	Vulkan/DebugMessenger.cpp
 	Vulkan/Surface.h
 	Vulkan/Surface.cpp
 	Vulkan/Device.h
 	Vulkan/Device.cpp
+)
+
+set(VULKAN_DEBUG_FILES
+    Vulkan/Debug/Info.h
+	Vulkan/Debug/Info.cpp
+	Vulkan/Debug/Messenger.h
+	Vulkan/Debug/Messenger.cpp
+	Vulkan/Debug/Utilities.h
+	Vulkan/Debug/Utilities.cpp
 )
 
 set(VULKAN_RAYTRACING_FILES
@@ -67,6 +72,7 @@ source_group("Core" FILES ${CORE_FILES})
 source_group("Core/Utilities" FILES ${UTILITIES_FILES})
 source_group("Vulkan" FILES ${VULKAN_FILES})
 source_group("Vulkan/Raytracing" FILES ${VULKAN_RAYTRACING_FILES})
+source_group("Vulkan/Debug" FILES ${VULKAN_DEBUG_FILES})
 
 if(MSVC)
     add_compile_options(
@@ -85,6 +91,7 @@ add_executable(${EXE_NAME}
 	${CORE_FILES}
 	${VULKAN_FILES}
 	${VULKAN_RAYTRACING_FILES}
+	${VULKAN_DEBUG_FILES}
 )
 
 add_precompiled_header(${EXE_NAME} pch.h SOURCE_CXX pch.cpp FORCEINCLUDE)

@@ -2,7 +2,7 @@
 #include "Core/WindowProperties.h"
 #include "Core/Raytracer.h"
 
-#include "Vulkan/Info.h"
+#include "Vulkan/Debug/Info.h"
 #include "Vulkan/Enumerate.h"
 
 namespace 
@@ -47,10 +47,10 @@ int main(int argc, char** argv)
 		Core::Raytracer application(windowProperties, settings.presentMode);
 
 		// Print information of the initialized Vulkan application.
-		Vulkan::PrintVulkanSDKInformation();
-		Vulkan::PrintVulkanInstanceInformation(application);
-		Vulkan::PrintVulkanLayersInformation(application);
-		Vulkan::PrintVulkanDevices(application);
+		Vulkan::Debug::PrintVulkanSDKInformation();
+		Vulkan::Debug::PrintVulkanInstanceInformation(application);
+		Vulkan::Debug::PrintVulkanLayersInformation(application);
+		Vulkan::Debug::PrintVulkanDevices(application);
 
 		SetVulkanDevice(application);
 
@@ -105,7 +105,7 @@ namespace
 
 		std::cout << "Setting Device [" << deviceProperties.properties.deviceID << "]:" << std::endl;
 
-		// application.setPhysicalDevice(*result);
+		application.setPhysicalDevice(*result);
 
 		std::cout << std::endl;
 	}

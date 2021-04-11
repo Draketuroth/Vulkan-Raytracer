@@ -13,7 +13,9 @@ namespace Vulkan
         explicit Surface(const Instance& instanceIn);
         ~Surface();
 
-        const class Instance& getInstance() { return instance; }
+        const class Instance& getInstance() const { return instance; }
+        VkSurfaceKHR getHandle() const { return surface; }
+
     private:
 
         const class Instance& instance;

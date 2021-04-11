@@ -1,5 +1,5 @@
 
-#include "Vulkan/DebugMessenger.h"
+#include "Vulkan/Debug/Messenger.h"
 
 #include "Vulkan/Instance.h"
 
@@ -133,47 +133,50 @@ namespace Vulkan
         }
     }
 
-    DebugMessenger::DebugMessenger(const Instance& instanceIn, VkDebugUtilsMessageSeverityFlagBitsEXT thresholdIn) :
-        instance(instanceIn),
-        threshold(thresholdIn)
+    namespace Debug
     {
-        if (instance.getValidationLayers().empty()) 
+        Messenger::Messenger(const Instance& instanceIn, VkDebugUtilsMessageSeverityFlagBitsEXT thresholdIn) :
+            instance(instanceIn),
+            threshold(thresholdIn)
         {
-            return;
+            if (instance.getValidationLayers().empty())
+            {
+                return;
+            }
+
+            VkDebugUtilsMessageSeverityFlagsEXT severity = 0;
+
+            switch (threshold)
+            {
+            case VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT:
+                severity |= VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT;
+            case VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT:
+                severity |= VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT;
+            case VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT:
+                severity |= VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT;
+            case VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT:
+                severity |= VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT;
+                break;
+            default:
+                throw std::invalid_argument("Invalid debug utils threshold!");
+            }
+
+            VkDebugUtilsMessengerCreateInfoEXT createInfo = {};
+            createInfo.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
+            createInfo.messageSeverity = severity;
+            createInfo.messageType = VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
+            createInfo.pfnUserCallback = VulkanDebugCallback;
+            createInfo.pUserData = nullptr;
+
+            CheckVKResult(CreateDebugUtilsMessengerEXT(instance.getHandle(), &createInfo, nullptr, &messenger), "Setting up Vulkan debug callback");
         }
-
-        VkDebugUtilsMessageSeverityFlagsEXT severity = 0;
-
-        switch (threshold) 
+        Messenger::~Messenger()
         {
-        case VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT:
-            severity |= VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT;
-        case VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT:
-            severity |= VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT;
-        case VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT:
-            severity |= VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT;
-        case VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT:
-            severity |= VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT;
-            break;
-        default:
-            throw std::invalid_argument("Invalid debug utils threshold!");
-        }
-
-        VkDebugUtilsMessengerCreateInfoEXT createInfo = {};
-        createInfo.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
-        createInfo.messageSeverity = severity;
-        createInfo.messageType = VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
-        createInfo.pfnUserCallback = VulkanDebugCallback;
-        createInfo.pUserData = nullptr;
-
-        CheckVKResult(CreateDebugUtilsMessengerEXT(instance.getHandle(), &createInfo, nullptr, &messenger), "Setting up Vulkan debug callback");
-    }
-    DebugMessenger::~DebugMessenger()
-    {
-        if (messenger != nullptr) 
-        {
-            DestroyDebugUtilsMessengerEXT(instance.getHandle(), messenger, nullptr);
-            messenger = nullptr;
+            if (messenger != nullptr)
+            {
+                DestroyDebugUtilsMessengerEXT(instance.getHandle(), messenger, nullptr);
+                messenger = nullptr;
+            }
         }
     }
 }
