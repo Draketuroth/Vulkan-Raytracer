@@ -7,3 +7,5 @@ The purpose of the project is to combine two aspects:
 * Learn to use the Vulkan API in order to demonstrate a ray tracing implementation on the GPU
 
 ## Links
+
+Overleaf Paper Preview: [A Study on Modern Raytracing in Vulkan](https://www.overleaf.com/read/sdkczfxzkdym)
