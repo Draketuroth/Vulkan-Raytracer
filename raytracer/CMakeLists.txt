@@ -50,6 +50,8 @@ set(VULKAN_FILES
 	Vulkan/Surface.cpp
 	Vulkan/Device.h
 	Vulkan/Device.cpp
+	Vulkan/CommandPool.h
+	Vulkan/CommandPool.cpp
 )
 
 set(VULKAN_DEBUG_FILES

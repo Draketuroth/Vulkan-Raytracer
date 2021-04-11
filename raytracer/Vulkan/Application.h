@@ -31,9 +31,9 @@ namespace Vulkan
             VkPhysicalDeviceFeatures& deviceFeatures,
             void* nextDeviceFeatures);
 
-
         Platform::Pointer::Scope<Core::Window> window;
         Platform::Pointer::Scope<class Device> device;
+        Platform::Pointer::Scope<class CommandPool> commandPool;
         Platform::Pointer::Scope<class Instance> instance;
         Platform::Pointer::Scope<Debug::Messenger> debugUtilsMessenger;
         Platform::Pointer::Scope<class Surface> surface;

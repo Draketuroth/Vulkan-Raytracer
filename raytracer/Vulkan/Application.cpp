@@ -5,6 +5,7 @@
 #include "Vulkan/Instance.h"
 #include "Vulkan/Surface.h"
 #include "Vulkan/Device.h"
+#include "Vulkan/CommandPool.h"
 
 #include "Core/Window.h"
 
@@ -12,6 +13,7 @@ namespace Vulkan
 {
     Application::~Application()
     {
+        commandPool.reset();
         device.reset();
         surface.reset();
         debugUtilsMessenger.reset();
@@ -71,5 +73,6 @@ namespace Vulkan
     void Application::setPhysicalDevice(VkPhysicalDevice physicalDevice, std::vector<const Platform::Type::Char*>& requiredExtensions, VkPhysicalDeviceFeatures& deviceFeatures, void* nextDeviceFeatures)
     {
         device.reset(new class Device(physicalDevice, *surface, requiredExtensions, deviceFeatures, nextDeviceFeatures));
+        commandPool.reset(new class CommandPool(*device, device->getGraphicsFamiliyIndex(), true));
     }
 }

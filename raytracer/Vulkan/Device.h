@@ -20,6 +20,7 @@ namespace Vulkan
 
         ~Device();
 
+        VkDevice getHandle() const { return device; }
         VkPhysicalDevice getPhysicalDevice() const { return physicalDevice; }
         const class Surface& getSurface() const { return surface; }
 
