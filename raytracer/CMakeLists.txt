@@ -52,6 +52,10 @@ set(VULKAN_FILES
 	Vulkan/Device.cpp
 	Vulkan/CommandPool.h
 	Vulkan/CommandPool.cpp
+	Vulkan/Swapchain.h
+	Vulkan/Swapchain.cpp
+	Vulkan/ImageView.h
+	Vulkan/ImageView.cpp
 )
 
 set(VULKAN_DEBUG_FILES

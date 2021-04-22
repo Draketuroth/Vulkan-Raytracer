@@ -19,11 +19,12 @@ namespace Vulkan
         const std::vector<VkPhysicalDevice>& devices() const;
 
         void setPhysicalDevice(VkPhysicalDevice physicalDevice);
+        void createSwapChain();
 
         void run();
 
     protected:
-        Application(const Core::WindowProperties& windowConfig, VkPresentModeKHR presentMode, bool enableValidationLayers);
+        Application(const Core::WindowProperties& windowConfig, VkPresentModeKHR presentModeIn, bool enableValidationLayers);
 
         virtual void setPhysicalDevice(
             VkPhysicalDevice physicalDevice,
@@ -31,12 +32,19 @@ namespace Vulkan
             VkPhysicalDeviceFeatures& deviceFeatures,
             void* nextDeviceFeatures);
 
+        virtual void deleteSwapchain();
+
+    private:
+
+        const VkPresentModeKHR presentMode;
+
         Platform::Pointer::Scope<Core::Window> window;
         Platform::Pointer::Scope<class Device> device;
         Platform::Pointer::Scope<class CommandPool> commandPool;
         Platform::Pointer::Scope<class Instance> instance;
         Platform::Pointer::Scope<Debug::Messenger> debugUtilsMessenger;
         Platform::Pointer::Scope<class Surface> surface;
+        Platform::Pointer::Scope<class Swapchain> swapChain;
     };
 }
 

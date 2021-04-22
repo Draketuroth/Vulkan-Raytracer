@@ -1,5 +1,5 @@
 #ifndef VULKAN_DEBUG_UTILITIES
-#define VULKAN_DEBUG_UTILIITIES
+#define VULKAN_DEBUG_UTILITIES
 
 namespace Vulkan 
 {

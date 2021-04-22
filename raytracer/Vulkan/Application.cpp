@@ -6,6 +6,7 @@
 #include "Vulkan/Surface.h"
 #include "Vulkan/Device.h"
 #include "Vulkan/CommandPool.h"
+#include "Vulkan/Swapchain.h"
 
 #include "Core/Window.h"
 
@@ -13,6 +14,8 @@ namespace Vulkan
 {
     Application::~Application()
     {
+        deleteSwapchain();
+
         commandPool.reset();
         device.reset();
         surface.reset();
@@ -52,6 +55,18 @@ namespace Vulkan
 
         setPhysicalDevice(physicalDevice, requiredExtensions, deviceFeatures, nullptr);
 
+        createSwapChain();
+    }
+
+    void Application::createSwapChain()
+    {
+        // Only process events when the window is visible.
+        while (window->isMinimized()) 
+        {
+            window->waitForEvents();
+        }
+
+        swapChain.reset(new class Swapchain(*device, presentMode));
     }
 
     void Application::run()
@@ -59,7 +74,8 @@ namespace Vulkan
         window->run();
     }
     
-    Application::Application(const Core::WindowProperties& windowProperties, VkPresentModeKHR presentMode, bool enableValidationLayers)
+    Application::Application(const Core::WindowProperties& windowProperties, VkPresentModeKHR presentModeIn, bool enableValidationLayers) :
+        presentMode(presentModeIn)
     {
         const std::vector<const Platform::Type::Char*> validationLayers = enableValidationLayers
             ? std::vector<const Platform::Type::Char*> {"VK_LAYER_KHRONOS_validation"} : std::vector<const Platform::Type::Char*>();
@@ -74,5 +90,10 @@ namespace Vulkan
     {
         device.reset(new class Device(physicalDevice, *surface, requiredExtensions, deviceFeatures, nextDeviceFeatures));
         commandPool.reset(new class CommandPool(*device, device->getGraphicsFamiliyIndex(), true));
+    }
+
+    void Application::deleteSwapchain()
+    {
+        swapChain.reset();
     }
 }

@@ -65,6 +65,7 @@ int main(int argc, char** argv)
 	catch (...) 
 	{
 		std::cerr << "FATAL: Caught unhandled exception!" << std::endl;
+		throw;
 	}
 
 	return EXIT_FAILURE;
