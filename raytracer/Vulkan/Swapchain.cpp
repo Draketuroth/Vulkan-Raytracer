@@ -1,5 +1,5 @@
 
-#include "Vulkan/Swapchain.h"
+#include "Vulkan/SwapChain.h"
 
 #include "Vulkan/Device.h"
 #include "Vulkan/Surface.h"
@@ -12,7 +12,7 @@
 
 namespace Vulkan 
 {
-    Swapchain::Swapchain(const class Device& deviceIn, VkPresentModeKHR presentModeIn) :
+    SwapChain::SwapChain(const class Device& deviceIn, VkPresentModeKHR presentModeIn) :
         physicalDevice(deviceIn.getPhysicalDevice()),
         device(deviceIn)
     {
@@ -82,7 +82,7 @@ namespace Vulkan
         }
     }
 
-    Swapchain::~Swapchain()
+    SwapChain::~SwapChain()
     {
         imageViews.clear();
 
@@ -93,7 +93,7 @@ namespace Vulkan
         }
     }
 
-    Swapchain::SupportDetails Swapchain::querySwapChainSupport(VkPhysicalDevice physicalDevice, VkSurfaceKHR surface)
+    SwapChain::SupportDetails SwapChain::querySwapChainSupport(VkPhysicalDevice physicalDevice, VkSurfaceKHR surface)
     {
         SupportDetails details;
 
@@ -103,7 +103,8 @@ namespace Vulkan
 
         return details;
     }
-    VkSurfaceFormatKHR Swapchain::chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& formats)
+
+    VkSurfaceFormatKHR SwapChain::chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& formats)
     {
         if (formats.size() == 1 && formats[0].format == VK_FORMAT_UNDEFINED) 
         {
@@ -120,7 +121,8 @@ namespace Vulkan
 
         throw std::runtime_error("Found no suitiable surface format!");
     }
-    VkPresentModeKHR Swapchain::chooseSwapPresentMode(const std::vector<VkPresentModeKHR>& presentModes, VkPresentModeKHR presentMode)
+
+    VkPresentModeKHR SwapChain::chooseSwapPresentMode(const std::vector<VkPresentModeKHR>& presentModes, VkPresentModeKHR presentMode)
     {
         switch (presentMode)
         {
@@ -142,7 +144,8 @@ namespace Vulkan
 
         return VK_PRESENT_MODE_FIFO_KHR;
     }
-    VkExtent2D Swapchain::chooseSwapExtent(const Core::Window& window, const VkSurfaceCapabilitiesKHR& capabilites)
+
+    VkExtent2D SwapChain::chooseSwapExtent(const Core::Window& window, const VkSurfaceCapabilitiesKHR& capabilites)
     {
         if (capabilites.currentExtent.width != std::numeric_limits<Platform::Type::Uint32>::max()) 
         {
@@ -156,7 +159,8 @@ namespace Vulkan
 
         return actualExtent;
     }
-    Platform::Type::Uint32 Swapchain::chooseImageCount(const VkSurfaceCapabilitiesKHR& capabilities)
+
+    Platform::Type::Uint32 SwapChain::chooseImageCount(const VkSurfaceCapabilitiesKHR& capabilities)
     {
         Platform::Type::Uint32 imageCount = std::max(2u, capabilities.minImageCount);
 

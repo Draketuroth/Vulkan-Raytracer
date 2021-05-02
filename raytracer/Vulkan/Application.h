@@ -44,7 +44,8 @@ namespace Vulkan
         Platform::Pointer::Scope<class Instance> instance;
         Platform::Pointer::Scope<Debug::Messenger> debugUtilsMessenger;
         Platform::Pointer::Scope<class Surface> surface;
-        Platform::Pointer::Scope<class Swapchain> swapChain;
+        Platform::Pointer::Scope<class SwapChain> swapChain;
+        Platform::Pointer::Scope<class DepthBuffer> depthBuffer;
     };
 }
 

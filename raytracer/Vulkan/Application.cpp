@@ -6,7 +6,8 @@
 #include "Vulkan/Surface.h"
 #include "Vulkan/Device.h"
 #include "Vulkan/CommandPool.h"
-#include "Vulkan/Swapchain.h"
+#include "Vulkan/SwapChain.h"
+#include "Vulkan/DepthBuffer.h"
 
 #include "Core/Window.h"
 
@@ -66,7 +67,8 @@ namespace Vulkan
             window->waitForEvents();
         }
 
-        swapChain.reset(new class Swapchain(*device, presentMode));
+        swapChain.reset(new SwapChain(*device, presentMode));
+        depthBuffer.reset(new DepthBuffer(*commandPool, swapChain->getExtent()));
     }
 
     void Application::run()
@@ -94,6 +96,7 @@ namespace Vulkan
 
     void Application::deleteSwapchain()
     {
+        depthBuffer.reset();
         swapChain.reset();
     }
 }

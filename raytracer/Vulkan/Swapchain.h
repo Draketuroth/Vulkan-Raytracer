@@ -7,15 +7,19 @@ namespace Core { class Window; }
 
 namespace Vulkan 
 {
-    class Swapchain final 
+    class SwapChain final 
     {
     public:
 
-        Swapchain(const Device& deviceIn, VkPresentModeKHR presentModeIn);
-        ~Swapchain();
+        SwapChain(const Device& deviceIn, VkPresentModeKHR presentModeIn);
+        ~SwapChain();
 
         VkPhysicalDevice getPhysicalDevice() const { return physicalDevice; }
         const class Device& getDevice() const { return device; }
+        Platform::Type::Uint32 getMinImageCount() const { return minImageCount; }
+        const std::vector<VkImage>& getImages() const { return images; }
+        const std::vector<Platform::Pointer::Scope<ImageView>>& getImageViews() const { return imageViews; }
+        VkExtent2D getExtent() const { return extent; }
 
     private:
 

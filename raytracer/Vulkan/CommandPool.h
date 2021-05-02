@@ -11,6 +11,8 @@ namespace Vulkan
         CommandPool(const Device& deviceIn, Platform::Type::Uint32 queueFamilyIndex, bool allowReset);
         ~CommandPool();
 
+        VkCommandPool getHandle() const { return commandPool; }
+
         const class Device& getDevice() const { return device; }
 
     private:

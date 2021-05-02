@@ -52,10 +52,21 @@ set(VULKAN_FILES
 	Vulkan/Device.cpp
 	Vulkan/CommandPool.h
 	Vulkan/CommandPool.cpp
-	Vulkan/Swapchain.h
-	Vulkan/Swapchain.cpp
+	Vulkan/SwapChain.h
+	Vulkan/SwapChain.cpp
 	Vulkan/ImageView.h
 	Vulkan/ImageView.cpp
+	Vulkan/Image.h
+	Vulkan/Image.cpp
+	Vulkan/DepthBuffer.h
+	Vulkan/DepthBuffer.cpp
+	Vulkan/DeviceMemory.h
+	Vulkan/DeviceMemory.cpp
+	Vulkan/Buffer.h
+	Vulkan/Buffer.cpp
+	Vulkan/CommandBuffers.h
+	Vulkan/CommandBuffers.cpp
+	Vulkan/SingleTimeCommands.h
 )
 
 set(VULKAN_DEBUG_FILES
