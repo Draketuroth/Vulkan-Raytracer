@@ -5,7 +5,19 @@
 
 namespace Core { class Window; }
 
-namespace Vulkan { namespace Debug { class Messenger; } }
+namespace Vulkan { 
+
+    namespace Debug 
+    { 
+        class Messenger; 
+    } 
+
+    namespace Assets
+    {
+        class UniformBufferObject;
+        class UniformBuffer;
+    }
+}
 
 namespace Vulkan 
 {
@@ -39,13 +51,24 @@ namespace Vulkan
         const VkPresentModeKHR presentMode;
 
         Platform::Pointer::Scope<Core::Window> window;
+        Platform::Pointer::Scope<Debug::Messenger> debugUtilsMessenger;
+
         Platform::Pointer::Scope<class Device> device;
         Platform::Pointer::Scope<class CommandPool> commandPool;
         Platform::Pointer::Scope<class Instance> instance;
-        Platform::Pointer::Scope<Debug::Messenger> debugUtilsMessenger;
         Platform::Pointer::Scope<class Surface> surface;
         Platform::Pointer::Scope<class SwapChain> swapChain;
         Platform::Pointer::Scope<class DepthBuffer> depthBuffer;
+        Platform::Pointer::Scope<class CommandBuffers> commandBuffers;
+        
+        std::vector<Assets::UniformBuffer> uniformBuffers;
+
+        std::vector<class Semaphore> imageAvailableSemaphores;
+        std::vector<class Semaphore> renderFinishedSemaphores;
+        std::vector<class Fence> inFlightFences;
+
+
+
     };
 }
 

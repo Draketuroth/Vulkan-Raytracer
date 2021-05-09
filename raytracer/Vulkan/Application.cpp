@@ -8,6 +8,10 @@
 #include "Vulkan/CommandPool.h"
 #include "Vulkan/SwapChain.h"
 #include "Vulkan/DepthBuffer.h"
+#include "Vulkan/CommandBuffers.h"
+#include "Vulkan/Assets/UniformBuffer.h"
+#include "Vulkan/Semaphore.h"
+#include "Vulkan/Fence.h"
 
 #include "Core/Window.h"
 
@@ -69,6 +73,14 @@ namespace Vulkan
 
         swapChain.reset(new SwapChain(*device, presentMode));
         depthBuffer.reset(new DepthBuffer(*commandPool, swapChain->getExtent()));
+
+        for (size_t i = 0; i != swapChain->getImageViews().size(); ++i) 
+        {
+            imageAvailableSemaphores.emplace_back(*device);
+            renderFinishedSemaphores.emplace_back(*device);
+            inFlightFences.emplace_back(*device, true);
+            uniformBuffers.emplace_back(*device);
+        }
     }
 
     void Application::run()
@@ -96,6 +108,11 @@ namespace Vulkan
 
     void Application::deleteSwapchain()
     {
+        commandBuffers.reset();
+        uniformBuffers.clear();
+        inFlightFences.clear();
+        renderFinishedSemaphores.clear();
+        imageAvailableSemaphores.clear();
         depthBuffer.reset();
         swapChain.reset();
     }

@@ -1,3 +1,5 @@
+#ifndef VULKAN_SINGLE_TIME_COMMANDS_H
+#define VULKAN_SINGLE_TIME_COMMANDS_H
 
 #include "Vulkan/Core.h"
 #include "Vulkan/CommandBuffers.h"
@@ -37,3 +39,5 @@ namespace Vulkan
         }
     };
 }
+
+#endif
