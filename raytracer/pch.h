@@ -12,5 +12,6 @@
 #include <cstdint>
 #include <string>
 #include <functional>
+#include <array>
 
 #endif

@@ -20,6 +20,7 @@ namespace Vulkan
         const std::vector<VkImage>& getImages() const { return images; }
         const std::vector<Platform::Pointer::Scope<ImageView>>& getImageViews() const { return imageViews; }
         VkExtent2D getExtent() const { return extent; }
+        VkFormat getFormat() const { return format; }
 
     private:
 

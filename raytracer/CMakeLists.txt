@@ -72,11 +72,22 @@ set(VULKAN_FILES
 	Vulkan/Fence.cpp
 	Vulkan/Semaphore.h
 	Vulkan/Semaphore.cpp
+	Vulkan/GraphicsPipeline.h
+	Vulkan/GraphicsPipeline.cpp
+	Vulkan/RenderPass.h
+	Vulkan/RenderPass.cpp
+	Vulkan/PipelineLayout.h
+	Vulkan/PipelineLayout.cpp
+	Vulkan/DescriptorSetLayout.h
+	Vulkan/DescriptorSetLayout.cpp
+	Vulkan/DescriptorBinding.h
 )
 
 set(VULKAN_ASSETS_FILES
 	Vulkan/Assets/UniformBuffer.h
 	Vulkan/Assets/UniformBuffer.cpp
+	Vulkan/Assets/Scene.h
+	Vulkan/Assets/Scene.cpp
 )
 
 set(VULKAN_DEBUG_FILES
