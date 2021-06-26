@@ -2,6 +2,7 @@
 #include "Vulkan/Debug/Info.h"
 
 #include "Vulkan/Application.h"
+#include "Vulkan/SwapChain.h"
 #include "Vulkan/Version.h"
 
 enum VendorId
@@ -121,7 +122,12 @@ namespace Vulkan
 
         void PrintVulkanSwapChainInformation(const Vulkan::Application& application)
         {
+            const SwapChain& swapChain = application.getSwapChain();
 
+            std::cout << "Swap Chain: " << std::endl;
+            std::cout << "- image count: " << swapChain.getImages().size() << std::endl;
+            std::cout << "- present mode: " << swapChain.getPresentMode() << std::endl;
+            std::cout << std::endl;
         }
     }
 }

@@ -9,7 +9,9 @@ namespace Vulkan
     {
     public:
 
-        DeviceMemory(const Device& deviceIn, size_t size, 
+        DeviceMemory(
+            const Device& deviceIn, 
+            size_t size, 
             Platform::Type::Uint32 memoryTypeBits, 
             VkMemoryAllocateFlags allocateFlags, 
             VkMemoryPropertyFlags propertyFlags);
@@ -25,6 +27,10 @@ namespace Vulkan
         void unmap();
 
     private:
+
+        DeviceMemory(const DeviceMemory&) = delete;
+        DeviceMemory& operator = (const DeviceMemory&) = delete;
+        DeviceMemory& operator = (DeviceMemory&&) = delete;
 
         Platform::Type::Uint32 findMemoryType(Platform::Type::Uint32 typeFilter,
             const VkMemoryPropertyFlags propertyFlags) const;

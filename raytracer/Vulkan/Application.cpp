@@ -9,9 +9,11 @@
 #include "Vulkan/SwapChain.h"
 #include "Vulkan/DepthBuffer.h"
 #include "Vulkan/CommandBuffers.h"
-#include "Vulkan/Assets/UniformBuffer.h"
+#include "Vulkan/Resources/UniformBuffer.h"
+#include "Vulkan/GraphicsPipeline.h"
 #include "Vulkan/Semaphore.h"
 #include "Vulkan/Fence.h"
+#include "Vulkan/FrameBuffer.h"
 
 #include "Core/Window.h"
 
@@ -81,6 +83,15 @@ namespace Vulkan
             inFlightFences.emplace_back(*device, true);
             uniformBuffers.emplace_back(*device);
         }
+
+        graphicsPipeline.reset(new class GraphicsPipeline(*swapChain, *depthBuffer, uniformBuffers, getScene(), isWireFrame));
+
+        for (const auto& imageView : swapChain->getImageViews()) 
+        {
+            swapChainFrameBuffers.emplace_back(*imageView, graphicsPipeline->getRenderPass());
+        }
+
+        commandBuffers.reset(new CommandBuffers(*commandPool, static_cast<Platform::Type::Uint32>(swapChainFrameBuffers.size())));
     }
 
     void Application::run()
@@ -109,6 +120,8 @@ namespace Vulkan
     void Application::deleteSwapchain()
     {
         commandBuffers.reset();
+        swapChainFrameBuffers.clear();
+        graphicsPipeline.reset();
         uniformBuffers.clear();
         inFlightFences.clear();
         renderFinishedSemaphores.clear();

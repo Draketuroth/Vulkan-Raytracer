@@ -14,6 +14,7 @@ namespace Platform
         typedef uint32_t        Uint32;
         typedef uint64_t        Uint64;
         typedef char            Char;
+        typedef unsigned char   UChar;
         typedef double          Double;
         typedef float           Float;
     }
@@ -22,6 +23,9 @@ namespace Platform
     {
         template<typename T>
         using Scope = std::unique_ptr<T>;
+
+        template<typename T>
+        using Shared = std::shared_ptr<T>;
     }
 }
 

@@ -17,7 +17,7 @@ namespace Vulkan {
 
 namespace Vulkan 
 {
-    namespace Assets 
+    namespace Resources 
     {
         class UniformBufferObject 
         {

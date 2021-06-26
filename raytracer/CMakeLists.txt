@@ -38,6 +38,18 @@ set(UTILITIES_FILES
 	Core/Utilities/Glm.h
 )
 
+set(VULKAN_DESCRIPTOR_FILES
+	Vulkan/Descriptor/DescriptorSetManager.h
+	Vulkan/Descriptor/DescriptorSetManager.cpp
+	Vulkan/Descriptor/DescriptorPool.h
+	Vulkan/Descriptor/DescriptorPool.cpp
+	Vulkan/Descriptor/DescriptorSetLayout.h
+	Vulkan/Descriptor/DescriptorSetLayout.cpp
+	Vulkan/Descriptor/DescriptorBinding.h
+	Vulkan/Descriptor/DescriptorSets.h
+	Vulkan/Descriptor/DescriptorSets.cpp
+)
+
 set(VULKAN_FILES
 	Vulkan/Application.h
 	Vulkan/Application.cpp
@@ -78,16 +90,34 @@ set(VULKAN_FILES
 	Vulkan/RenderPass.cpp
 	Vulkan/PipelineLayout.h
 	Vulkan/PipelineLayout.cpp
-	Vulkan/DescriptorSetLayout.h
-	Vulkan/DescriptorSetLayout.cpp
-	Vulkan/DescriptorBinding.h
+	Vulkan/Sampler.h
+	Vulkan/Sampler.cpp
+	Vulkan/BufferUtilities.h
+	Vulkan/ShaderModule.h
+	Vulkan/ShaderModule.cpp
+	Vulkan/FrameBuffer.h
+	Vulkan/FrameBuffer.cpp
 )
 
-set(VULKAN_ASSETS_FILES
-	Vulkan/Assets/UniformBuffer.h
-	Vulkan/Assets/UniformBuffer.cpp
-	Vulkan/Assets/Scene.h
-	Vulkan/Assets/Scene.cpp
+set(VULKAN_RESOURCES_FILES
+	Vulkan/Resources/UniformBuffer.h
+	Vulkan/Resources/UniformBuffer.cpp
+	Vulkan/Resources/Scene.h
+	Vulkan/Resources/Scene.cpp
+	Vulkan/Resources/Model.h
+	Vulkan/Resources/Model.cpp
+	Vulkan/Resources/Vertex.h
+	Vulkan/Resources/Material.h
+	Vulkan/Resources/Procedural.h
+	Vulkan/Resources/Sphere.h
+	Vulkan/Resources/Texture.h
+	Vulkan/Resources/Texture.cpp
+	Vulkan/Resources/TextureImage.h
+	Vulkan/Resources/TextureImage.cpp
+)
+
+set(VULKAN_DATA_FILES
+	Vulkan/Data/Vertex.h
 )
 
 set(VULKAN_DEBUG_FILES
@@ -111,7 +141,8 @@ source_group("Core/Utilities" FILES ${UTILITIES_FILES})
 source_group("Vulkan" FILES ${VULKAN_FILES})
 source_group("Vulkan/Raytracing" FILES ${VULKAN_RAYTRACING_FILES})
 source_group("Vulkan/Debug" FILES ${VULKAN_DEBUG_FILES})
-source_group("Vulkan/Assets" FILES ${VULKAN_ASSETS_FILES})
+source_group("Vulkan/Resources" FILES ${VULKAN_RESOURCES_FILES})
+source_group("Vulkan/Descriptor" FILES ${VULKAN_DESCRIPTOR_FILES})
 
 if(MSVC)
     add_compile_options(
@@ -129,9 +160,10 @@ add_executable(${EXE_NAME}
 	${EVENT_FILES}
 	${CORE_FILES}
 	${VULKAN_FILES}
+	${VULKAN_DESCRIPTOR_FILES}
 	${VULKAN_RAYTRACING_FILES}
 	${VULKAN_DEBUG_FILES}
-	${VULKAN_ASSETS_FILES}
+	${VULKAN_RESOURCES_FILES}
 )
 
 add_precompiled_header(${EXE_NAME} pch.h SOURCE_CXX pch.cpp FORCEINCLUDE)

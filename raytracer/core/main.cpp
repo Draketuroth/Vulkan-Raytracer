@@ -15,6 +15,7 @@ struct Settings
 	Platform::Type::Uint width = 1024u;
 	Platform::Type::Uint height = 768u;
 	bool fullScreen = false;
+	bool benchmark = false;
 	VkPresentModeKHR presentMode = VkPresentModeKHR::VK_PRESENT_MODE_FIFO_KHR;
 };
 
@@ -23,7 +24,7 @@ void printHelpMessage()
 	std::cerr << "Usage: " << "Raytracer" << " <option(s)>\n"
 		<< "Options:\n"
 		<< "\t--help\t\tShow this help message\n"
-		<< "\t--verbose\tPrint debug messages\n"
+		<< "\t--benchmark\tPrint benchmark messages\n"
 		<< std::endl;
 }
 
@@ -38,6 +39,11 @@ int main(int argc, char** argv)
 			std::string arg = argv[i];
 			if ((arg == "-h") || (arg == "--help")) {
 				printHelpMessage();
+				return EXIT_SUCCESS;
+			}
+			if (arg == "-b" || (arg == "--benchmark")) 
+			{
+				settings.benchmark = true;
 			}
 		}
 
@@ -47,12 +53,21 @@ int main(int argc, char** argv)
 		Core::Raytracer application(windowProperties, settings.presentMode);
 
 		// Print information of the initialized Vulkan application.
-		Vulkan::Debug::PrintVulkanSDKInformation();
-		Vulkan::Debug::PrintVulkanInstanceInformation(application);
-		Vulkan::Debug::PrintVulkanLayersInformation(application);
-		Vulkan::Debug::PrintVulkanDevices(application);
+		if (settings.benchmark) 
+		{
+			Vulkan::Debug::PrintVulkanSDKInformation();
+			Vulkan::Debug::PrintVulkanInstanceInformation(application);
+			Vulkan::Debug::PrintVulkanLayersInformation(application);
+			Vulkan::Debug::PrintVulkanDevices(application);
+		}
 
+		// Initialize Vulkan base resources.
 		SetVulkanDevice(application);
+
+		if (settings.benchmark)
+		{
+			Vulkan::Debug::PrintVulkanSwapChainInformation(application);
+		}
 
 		application.run();
 

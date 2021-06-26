@@ -3,8 +3,15 @@
 
 namespace Vulkan
 {
-    class DescriptorSetLayout;
     class Device;
+}
+
+namespace Vulkan 
+{
+    namespace Descriptor 
+    {
+        class DescriptorSetLayout;
+    }
 }
 
 namespace Vulkan
@@ -12,8 +19,10 @@ namespace Vulkan
     class PipelineLayout final
     {
     public:
-        PipelineLayout(const Device& deviceIn, const DescriptorSetLayout& descriptorSetLayout);
+        PipelineLayout(const Device& deviceIn, const Descriptor::DescriptorSetLayout& descriptorSetLayout);
         ~PipelineLayout();
+
+        VkPipelineLayout getHandle() const { return pipelineLayout; }
 
     private:
         PipelineLayout(const PipelineLayout&) = delete;

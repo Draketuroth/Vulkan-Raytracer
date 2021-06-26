@@ -1,12 +1,12 @@
 
 #include "Vulkan/PipelineLayout.h"
-#include "Vulkan/DescriptorSetLayout.h"
+#include "Vulkan/Descriptor/DescriptorSetLayout.h"
 
 #include "Vulkan/Device.h"
 
 namespace Vulkan 
 {
-    PipelineLayout::PipelineLayout(const Device& deviceIn, const DescriptorSetLayout& descriptorSetLayout) :
+    PipelineLayout::PipelineLayout(const Device& deviceIn, const Descriptor::DescriptorSetLayout& descriptorSetLayout) :
         device(deviceIn)
     {
         VkDescriptorSetLayout descriptorSetLayouts[] = { descriptorSetLayout.getHandle() };

@@ -21,6 +21,9 @@ namespace Vulkan
 
         VkRenderPass getHandle() const { return renderPass; }
 
+        const class SwapChain& getSwapChain() const { return swapChain; }
+        const class DepthBuffer& getDepthBuffer() const { return depthBuffer; }
+
     private:
         RenderPass(const RenderPass&) = delete;
         RenderPass(RenderPass&&) = delete;

@@ -1,11 +1,11 @@
 
-#include "Vulkan/Assets/UniformBuffer.h"
+#include "Vulkan/Resources/UniformBuffer.h"
 
 #include "Vulkan/Buffer.h"
 
 namespace Vulkan
 {
-    namespace Assets
+    namespace Resources
     {
         UniformBuffer::UniformBuffer(const Vulkan::Device& device)
         {
