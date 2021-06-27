@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.11-3.18)
 file(GLOB SHADER_FILES shaders/*.vert shaders/*.frag shaders/*.rgen shaders/*.rchit shaders/*.rint shaders/*.rmiss)
 file(GLOB TEXTURE_FILES textures/*.jpg textures/*.png textures/*.txt)
 
-file(GLOB shader_EXTRA_FILES shaders/*.glsl)
+file(GLOB SHADER_EXTRA_FILES shaders/*.glsl)
 set_source_files_properties(${SHADER_EXTRA_FILES} PROPERTIES HEADER_FILE_ONLY TRUE)
 
 # Shader compilation
